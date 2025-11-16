@@ -41,6 +41,27 @@ app.get('/get/img', async (req, res) => {
 
 })
 
+app.post('/add/serial', async (req, res) => {
+  const { content, date, time } = req.body;
+  const { data, error } = await supabase
+    .from('serial_monitor')
+    .insert([{ content, date, time }])
+  if (error) return res.status(400).json({ error });
+  res.json(data)
+})
+
+app.get('/get/serial', async (req, res) => {
+
+  const { data, error } = await supabase
+    .from('serial_monitor')
+    .select('*')
+  if (error) return res.status(400).json({ error });
+  res.json(data)
+
+})
+
+
+
 // Iniciar servidor
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
