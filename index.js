@@ -42,10 +42,10 @@ app.get('/get/img', async (req, res) => {
 })
 
 app.post('/add/serial', async (req, res) => {
-  const { content, date, time } = req.body;
+  const { content, date, time,ip } = req.body;
   const { data, error } = await supabase
     .from('serial_monitor')
-    .insert([{ content, date, time }])
+    .insert([{ content, date, time,ip }])
   if (error) return res.status(400).json({ error });
   res.json(data)
 })
