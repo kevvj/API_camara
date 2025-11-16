@@ -23,10 +23,10 @@ app.get('/api/test', (req, res) => {
 })
 
 app.post('/add/img', async (req, res) => {
-  const { content } = req.body;
+  const { content, date, time } = req.body;
   const { data, error } = await supabase
     .from('images')
-    .insert([{content}])
+    .insert([{ content, date, time }])
   if (error) return res.status(400).json({ error });
   res.json(data)
 })
