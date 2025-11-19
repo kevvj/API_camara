@@ -3,12 +3,15 @@ const bodyParser = require('body-parser')
 const { createClient } = require('@supabase/supabase-js')
 const cors = require('cors')
 
+require('dotenv').config()
+
+const supabaseUrl = process.env.supabaseUrl
+const supabaseKey = process.env.supabaseKey
+const PORT = process.env.PORT || 3000
+
 const app = express()
 app.use(cors())
-const PORT = 3000
 
-const supabaseUrl = 'https://qukomivcjxiwtmecebnb.supabase.co'
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF1a29taXZjanhpd3RtZWNlYm5iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMxNzEwOTQsImV4cCI6MjA3ODc0NzA5NH0.lIOvl8Fis8dwaGlQHvDy4qsZ1-W2NQJ_zTC0uHE_sRY'
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 app.use(bodyParser.json())
@@ -62,7 +65,6 @@ app.get('/get/serial', async (req, res) => {
 
 
 
-// Iniciar servidor
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 })
