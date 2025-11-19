@@ -5,8 +5,8 @@ const cors = require('cors')
 
 require('dotenv').config()
 
-const supabaseUrl = process.env.supabaseUrl
-const supabaseKey = process.env.supabaseKey
+const supabaseUrl = process.env.SUPABASE_URL
+const supabaseKey = process.env.SUPABASE_KEY
 const PORT = process.env.PORT || 3000
 
 const app = express()
