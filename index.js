@@ -45,10 +45,10 @@ app.get('/get/img', async (req, res) => {
 })
 
 app.post('/add/serial', async (req, res) => {
-  const { content, date, time,ip } = req.body;
+  const { content, date, time, ip } = req.body;
   const { data, error } = await supabase
     .from('serial_monitor')
-    .insert([{ content, date, time,ip }])
+    .insert([{ content, date, time, ip }])
   if (error) return res.status(400).json({ error });
   res.json(data)
 })
@@ -61,6 +61,26 @@ app.get('/get/serial', async (req, res) => {
   if (error) return res.status(400).json({ error });
   res.json(data)
 
+})
+
+app.get('/delete/all-img', async (req, res) => {
+  const { data, error } = await supabase
+    .from('images')
+    .delete().neq('id', -1)
+
+  if (error) {
+    return res.status(400).json({ error })
+  }
+  res.json(data)
+})
+
+app.post('/delete-img/by-id', async (req, res) => {
+  const { id } = req.body;
+  const { data, error } = await supabase
+    .from('image')
+    .delete().eq('id', id)
+  if (error) return res.status(400).json({ error });
+  res.json(data)
 })
 
 
