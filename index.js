@@ -77,7 +77,7 @@ app.get('/delete/all-img', async (req, res) => {
 app.post('/delete-img/by-id', async (req, res) => {
   const { id } = req.body;
   const { data, error } = await supabase
-    .from('image')
+    .from('images')
     .delete().eq('id', id)
   if (error) return res.status(400).json({ error });
   res.json(data)
