@@ -86,15 +86,22 @@ app.post('/delete-img/by-id', async (req, res) => {
 app.post('/login', async (req, res) => {
   const { password } = req.body
 
-  const resp = await fetch('https://qukomivcjxiwtmecebnb.supabase.co/functions/v1/check-password', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ password })
-  })
+  try {
+    const resp = await fetch('https://qukomivcjxiwtmecebnb.supabase.co/functions/v1/check-password', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password })
+    })
 
-  if (resp.status === 200) return res.send('ok')
-  res.status(401).send('denied')
+    const data = await resp.json()
+    return res.status(resp.status).json(data)
+
+  } catch (err) {
+    console.error(err)
+    return res.status(500).json({ status: 'error', message: String(err) })
+  }
 })
+
 
 
 app.listen(PORT, () => {
